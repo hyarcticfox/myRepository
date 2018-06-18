@@ -1,0 +1,37 @@
+#include "CSingleton.h"
+
+CSingleton::CSingleton()
+{
+}
+
+
+CSingleton::~CSingleton()
+{
+}
+
+CSingleton * CSingleton::CSingleton::GetInstance()
+{
+	if (NULL == m_pInstance)
+	{
+		m_pInstance = new CSingleton;
+	}
+	return m_pInstance;
+}
+
+SOCKET CSingleton::CreateSocket(DWORD dwIP, const string strMulticastAddress, int nPort)
+{
+	SOCKET sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	SOCKADDR_IN addSrv;
+	ZeroMemory(&addSrv, sizeof(SOCKADDR_IN));
+	addSrv.sin_family = AF_INET;
+	addSrv.sin_port = htons(nPort);
+	addSrv.sin_addr.S_un.S_addr = htonl(dwIP);
+	int Ret = bind(sock, (SOCKADDR *)&addSrv, sizeof(addSrv));
+	if (Ret != 0)
+	{
+		int errorCode = WSAGetLastError();
+		closesocket(sock);
+		return INVALID_SOCKET;
+	}
+	return SOCKET();
+}

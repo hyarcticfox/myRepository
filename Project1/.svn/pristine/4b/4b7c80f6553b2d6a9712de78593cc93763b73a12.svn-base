@@ -1,0 +1,16 @@
+#pragma once
+#include "IPStruct.h"
+#include <string>
+using namespace std;
+class CSingleton
+{
+public:
+	CSingleton();
+	~CSingleton();
+	static CSingleton * GetInstance();
+	SOCKET CreateSocket(DWORD dwIP, const string strMulticastAddress, int nPort);
+private:
+	static CSingleton * m_pInstance;
+
+};
+
