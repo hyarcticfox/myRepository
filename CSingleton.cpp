@@ -14,7 +14,8 @@ CSingleton * CSingleton::m_pInstance = NULL;
 //LINK2001的问题就是m_Singleton没有分配空间。
 //因此只要在CSingleton.cpp外进行静态变量的定义就可以了。
 
-CSingleton::CSingleton()
+CSingleton::CSingleton():
+	m_socket(INVALID_SOCKET)
 {
 }
 
